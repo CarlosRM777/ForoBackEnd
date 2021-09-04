@@ -1,0 +1,29 @@
+version: "3.5"
+
+services:
+ docker-mysql:
+   image: mysql:latest
+   ports: 
+   - 3307
+   volumes: 
+   - ./foro-mysql-data
+   environment:
+     MYSQL_ROOT_PASSWORD: root@crm7
+     MYSQL_DATABASE: Foro
+ backendforo:
+  image: carlosrm7/forobackend
+  ports: 
+  - 8080:8080
+  environment:
+   SPRING_DATASOURCE_URL: jdbc:mysql://docker-mysql/Foro?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDateTimeCode=false&serverTimezone=UTC
+   SPRING_DATASOURCE_USERNAME: root
+   SPRING_DATASOURCE_PASSWORD: root@crm7
+   SPRING_JPA_DATABASE: MYSQL
+  depends_on:
+  - docker-mysql
+ frontendforo:
+  image: carlosrm7/forofrontend
+  ports: 
+  - 4200:4200
+  depends_on:
+  - backendforo
