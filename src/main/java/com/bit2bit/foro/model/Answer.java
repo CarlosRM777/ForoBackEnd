@@ -19,7 +19,7 @@ public class Answer {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-	
+	@Column(columnDefinition= "VARCHAR(5000)")
 	private String detail;
 	@Column(columnDefinition= "DATETIME")
 	private LocalDateTime date;

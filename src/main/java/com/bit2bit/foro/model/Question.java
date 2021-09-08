@@ -23,6 +23,7 @@ public class Question {
     
     //@Column
     private String title;
+    @Column(columnDefinition= "VARCHAR(5000)")
     private String detail;
     @Column(columnDefinition= "DATETIME")
     private LocalDateTime creationDate;
