@@ -140,8 +140,17 @@ public class ForoController {
 	@GetMapping("/author")
 	public ResponseEntity<?> GetAuthor(
 			@RequestParam(name = "username", required = true) String pusername,
-			@RequestParam(name = "password", required = true) String ppassword) {
-		Author author = authorservice.findByUserandPwd(pusername,ppassword);
+			@RequestParam(name = "password", required = false, defaultValue = "") String ppassword) {
+		Author author;
+		if ( pusername.length()!=0 && ppassword.length()!=0 )
+			author = authorservice.findByUserandPwd(pusername,ppassword);
+		else 
+		{
+			if (authorservice.findByUser(pusername))
+				author = new Author(1L);
+			else 
+				author = new Author(0L);
+		}
 		if (author == null)
 			return new ResponseEntity<Author>(author  , HttpStatus.BAD_REQUEST);
 		else

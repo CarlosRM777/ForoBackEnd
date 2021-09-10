@@ -33,6 +33,13 @@ public class AuthorService {
 		//return Authorrepo.findOnebyUsernameAndPassword(user,pwd);
 	}
 	
+	public boolean findByUser(String user) {
+		//String user = author.getUsername();
+		//String pwd = author.getPassword();
+		return Authorrepo.existsByUsername(user);
+		//return Authorrepo.findOnebyUsernameAndPassword(user,pwd);
+	}
+	
 	public List<Author> listAll() {
 		return Authorrepo.findAll();
 	}
